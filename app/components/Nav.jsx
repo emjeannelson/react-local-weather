@@ -4,9 +4,21 @@ import {Link, IndexLink} from 'react-router';
 export default class Nav extends React.Component {
   render () {
     return (
-      <h1>Nav</h1>
+      <div className="top-bar">
+        <div className="top-bar-left">
+          <ul>
+            <li className="menu text">React Weather App by <a href="http://emilynelson.us">Emily Nelson</a></li>
+          </ul>
+        </div>
+        <div className="top-bar-right">
+          <ul className="menu">
+            <IndexLink to="weather" activeClassName="active" className="menu-text">Show Local Weather</IndexLink>
+            <Link to="examples" activeClassName="active" className="menu-text">Your Saved Locations</Link>
+            <Link to="about" activeClassName="active" className="menu-text">About</Link>
+          </ul>
+        </div>
+      </div>
     );
-
     /**
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
