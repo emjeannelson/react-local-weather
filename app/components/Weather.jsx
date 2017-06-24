@@ -1,7 +1,7 @@
 import React from 'react';
 
-import getLocation from 'ipAPI';
-import getWeather from 'openWeatherMap';
+import callLocationAPI from 'ipAPI';
+import callWeatherAPI from 'openWeatherMap';
 
 import WeatherMessage from 'WeatherMessage';
 
@@ -9,42 +9,65 @@ export default class Weather extends React.Component {
   constructor() {
     super();
     this.state = {
+      city: undefined,
+      region: undefined,
+      country: undefined,
       lat: undefined,
       lon: undefined,
+      units: 'metric',
       isLoading: false
     };
+    this.getLocation = this.getLocation.bind(this);
+    this.getWeather = this.getWeather.bind(this);
   }
   componentDidMount() {
-
     this.setState({
       isLoading: true
     });
 
+    this.getLocation();
+  }
+  componentDidUpdate(prevProp, prevState) {
+    if (this.state.lat && this.state.lat !== prevState.lat && !prevState.temp) {
+      this.getWeather();
+    }
+  }
+  getLocation() {
+
     var that = this;
 
-    getLocation().then(function(location) {
-
-      var lat = location.lat;
-      var lon = location.lon;
-
-      var newThat = that;
-
-      getWeather(lat, lon).then(function(weather){
-
-        newThat.setState({
-          temp: weather.temp,
-          desc: weather.desc
-        });
-      }, function(e) {
-        console.log('Error!');
+    callLocationAPI().then(function(location) {
+      console.log(location.city);
+      that.setState({
+        city: location.city,
+        region: location.region,
+        country: location.country,
+        lat: location.lat,
+        lon: location.lon
       });
-    }, function(e) {
-      console.log(e);
     });
+  }
+  getWeather() {
+    var lat = this.state.lat;
+    var lon = this.state.lon;
+    var units = this.state.units;
+
+    var that = this;
+
+    callWeatherAPI(lat, lon, units).then(function(weather) {
+      that.setState({
+        temp: weather.temp,
+        desc: weather.desc,
+        isLoading: false
+      });
+    });
+  }
+  handleChangeUnits(units) {
+
   }
   render() {
     return (
-      <WeatherMessage temp={this.state.temp} desc={this.state.desc} />
+      <WeatherMessage onChangeUnits={this.handleChangeUnits} units={this.state.units} isLoading={this.state.isLoading} city={this.state.city} region={this.state.region} country={this.state.country} temp={this.state.temp} desc={this.state.desc} />
     );
   }
 }

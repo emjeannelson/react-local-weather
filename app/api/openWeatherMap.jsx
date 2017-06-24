@@ -1,14 +1,17 @@
 var axios = require('axios');
 
-const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=60d158d9f4fa6edea63082de27f22ab7&units=imperial'
+const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=60d158d9f4fa6edea63082de27f22ab7'
 
-export default function getWeather(lat, lon) {
-  var requestUrl = `${OPEN_WEATHER_MAP_URL}&lat=${lat}&lon=${lon}`;
+export default function callWeatherAPI(lat, lon, units) {
+
+  var requestUrl = `${OPEN_WEATHER_MAP_URL}&units=${units}&lat=${lat}&lon=${lon}`;
 
   return axios.get(requestUrl).then(function(res) {
     if (res.data.cod && res.data.message) {
       throw new Error(res.data.message);
     } else {
+
+      console.log(requestUrl);
 
       var weather = {
         temp: res.data.main.temp,
