@@ -19,6 +19,7 @@ export default class Weather extends React.Component {
     };
     this.getLocation = this.getLocation.bind(this);
     this.getWeather = this.getWeather.bind(this);
+    this.handleChangeUnits = this.handleChangeUnits.bind(this);
   }
   componentDidMount() {
     this.setState({
@@ -28,7 +29,9 @@ export default class Weather extends React.Component {
     this.getLocation();
   }
   componentDidUpdate(prevProp, prevState) {
-    if (this.state.lat && this.state.lat !== prevState.lat && !prevState.temp) {
+    if (!prevState.lat && this.state.lat) {
+      this.getWeather();
+    } else if (prevState.units !== this.state.units) {
       this.getWeather();
     }
   }
@@ -48,6 +51,7 @@ export default class Weather extends React.Component {
     });
   }
   getWeather() {
+
     var lat = this.state.lat;
     var lon = this.state.lon;
     var units = this.state.units;
@@ -62,8 +66,10 @@ export default class Weather extends React.Component {
       });
     });
   }
-  handleChangeUnits(units) {
-
+  handleChangeUnits(newUnits) {
+    this.setState({
+      units: newUnits
+    });
   }
   render() {
     return (
