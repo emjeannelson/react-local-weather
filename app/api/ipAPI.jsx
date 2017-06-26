@@ -8,8 +8,6 @@ export default function callLocationAPI() {
       city: res.data.city,
       region: res.data.region,
       country: res.data.country,
-      lat: res.data.lat,
-      lon: res.data.lon
       };
 
       return location;

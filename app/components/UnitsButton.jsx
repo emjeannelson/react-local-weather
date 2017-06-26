@@ -20,10 +20,10 @@ export default class UnitsButton extends React.Component {
 
     let unitsButton = null;
 
-    if (this.props.units === 'metric') {
-      unitsButton = <button onClick={this.onClickUnits}>C&deg;</button>;
-    } else {
-      unitsButton = <button onClick={this.onClickUnits}>F&deg;</button>;
+    if (this.props.units === 'metric' && !this.props.isLoading) {
+      unitsButton = <button onClick={this.onClickUnits}>&deg;C</button>;
+    } else if (this.props.units === 'imperial' && !this.props.isLoading) {
+      unitsButton = <button onClick={this.onClickUnits}>&deg;F</button>;
     }
 
     return (

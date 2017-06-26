@@ -18,12 +18,12 @@ export default class WeatherMessage extends React.Component {
     if (!isLoading) {
       if (region) {
         weatherReport = <div>
-          <h1>{city}, {region}, {country}</h1>
+          <h1>{city}</h1>
           {weatherConditions}
         </div>
       } else {
         weatherReport = <div>
-          <h1>{city}, {country}</h1>
+          <h1>{city}</h1>
           {weatherConditions}
         </div>
       }
@@ -32,7 +32,7 @@ export default class WeatherMessage extends React.Component {
     return (
       <div>
         {weatherReport}
-        <UnitsButton units={units} onChangeUnits={onChangeUnits} />
+        <UnitsButton units={units} isLoading={isLoading} onChangeUnits={onChangeUnits} />
       </div>
     );
   }
