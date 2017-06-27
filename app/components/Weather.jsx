@@ -12,12 +12,16 @@ export default class Weather extends React.Component {
     this.state = {
       city: undefined,
       units: 'metric',
-      isLoading: false
+      isLoading: false,
+      favorites: [],
+      temp: undefined,
+      desc: undefined
     };
     this.getLocation = this.getLocation.bind(this);
     this.getWeather = this.getWeather.bind(this);
     this.handleChangeUnits = this.handleChangeUnits.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleAddFavorite = this.handleAddFavorite.bind(this);
   }
   componentDidMount() {
     this.setState({
@@ -69,14 +73,50 @@ export default class Weather extends React.Component {
   }
   handleSearch(city) {
     this.setState({
+      isLoading: true,
       city: city
     }, this.getWeather);
   }
+  handleAddFavorite(city) {
+    if (!this.state.favorites.includes(city)) {
+      this.setState({
+        favorites: [
+          ...this.state.favorites,
+          city
+        ]
+      });
+    }
+  }
   render() {
+
+    let {isLoading, temp, desc, city, units} = this.state;
+
+    let handleChangeUnits = this.handleChangeUnits;
+
+    let handleSearch = this.handleSearch;
+
+    let handleAddFavorite = this.handleAddFavorite;
+
+    function renderWeatherReport() {
+      if (temp && city && !isLoading) {
+        return (
+          <div>
+            <WeatherMessage onAddFavorite={handleAddFavorite} isLoading={isLoading} temp={temp} desc={desc} city={city} units={units} onChangeUnits={handleChangeUnits}/>
+            <h2>Want to search for another location?</h2>
+            <SearchForm onSearch={handleSearch}/>
+          </div>
+        );
+      } else if (isLoading){
+        return (
+          <h1>Fetching the weather ... </h1>
+        );
+      }
+    }
+
     return (
       <div>
-        <WeatherMessage onChangeUnits={this.handleChangeUnits} units={this.state.units} isLoading={this.state.isLoading} city={this.state.city} temp={this.state.temp} desc={this.state.desc} />
-        <SearchForm onSearch={this.handleSearch}/>
+        <h1>Get Weather</h1>
+        {renderWeatherReport()}
       </div>
     );
   }

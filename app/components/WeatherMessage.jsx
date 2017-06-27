@@ -2,6 +2,7 @@ import React from 'react';
 
 import getLocation from 'ipAPI';
 import UnitsButton from 'UnitsButton';
+import FavoriteButton from 'FavoriteButton';
 
 export default class WeatherMessage extends React.Component {
   constructor(props) {
@@ -9,30 +10,14 @@ export default class WeatherMessage extends React.Component {
   }
   render() {
 
-    var {units, onChangeUnits, isLoading, city, region, country, temp, desc} = this.props;
-
-    let weatherReport = null;
-
-    let weatherConditions = <h2>{temp}&deg;, {desc}</h2>;
-
-    if (!isLoading) {
-      if (region) {
-        weatherReport = <div>
-          <h1>{city}</h1>
-          {weatherConditions}
-        </div>
-      } else {
-        weatherReport = <div>
-          <h1>{city}</h1>
-          {weatherConditions}
-        </div>
-      }
-    }
+    var {units, onChangeUnits, onAddFavorite, isLoading, city, temp, desc} = this.props;
 
     return (
       <div>
-        {weatherReport}
+        <h1>{city}</h1>
+        <h2>{temp}&deg; {desc}</h2>
         <UnitsButton units={units} isLoading={isLoading} onChangeUnits={onChangeUnits} />
+        <FavoriteButton city={city} onAddFavorite={onAddFavorite}/>
       </div>
     );
   }

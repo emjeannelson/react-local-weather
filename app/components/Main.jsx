@@ -7,7 +7,6 @@ export default class Main extends React.Component {
     return (
       <div>
         <Nav />
-        <h1>Hello from React</h1>
         {this.props.children}
       </div>
     );
