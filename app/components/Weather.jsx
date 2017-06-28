@@ -2,6 +2,7 @@ import React from 'react';
 
 import callLocationAPI from 'ipAPI';
 import callWeatherAPI from 'openWeatherMap';
+import {getFavorites, setFavorites} from 'FavoritesAPI';
 
 import WeatherMessage from 'WeatherMessage';
 import SearchForm from 'SearchForm';
@@ -13,7 +14,7 @@ export default class Weather extends React.Component {
       city: undefined,
       units: 'metric',
       isLoading: false,
-      favorites: [],
+      favorites: getFavorites(),
       temp: undefined,
       desc: undefined
     };
@@ -33,8 +34,14 @@ export default class Weather extends React.Component {
   componentDidUpdate(prevProp, prevState) {
     if (!prevState.city && this.state.city) {
       this.getWeather();
-    } else if (prevState.units !== this.state.units) {
+    }
+
+    if (prevState.units !== this.state.units) {
       this.getWeather();
+    }
+
+    if (prevState.favorites !== this.state.favorites) {
+      setFavorites(this.state.favorites);
     }
   }
   getLocation() {
@@ -89,7 +96,7 @@ export default class Weather extends React.Component {
   }
   render() {
 
-    let {isLoading, temp, desc, city, units} = this.state;
+    let {isLoading, temp, desc, city, units, favorites} = this.state;
 
     let handleChangeUnits = this.handleChangeUnits;
 
@@ -101,7 +108,7 @@ export default class Weather extends React.Component {
       if (temp && city && !isLoading) {
         return (
           <div>
-            <WeatherMessage onAddFavorite={handleAddFavorite} isLoading={isLoading} temp={temp} desc={desc} city={city} units={units} onChangeUnits={handleChangeUnits}/>
+            <WeatherMessage favorites={favorites} onAddFavorite={handleAddFavorite} isLoading={isLoading} temp={temp} desc={desc} city={city} units={units} onChangeUnits={handleChangeUnits}/>
             <h2>Want to search for another location?</h2>
             <SearchForm onSearch={handleSearch}/>
           </div>
@@ -117,6 +124,7 @@ export default class Weather extends React.Component {
       <div>
         <h1>Get Weather</h1>
         {renderWeatherReport()}
+        {this.props.children}
       </div>
     );
   }

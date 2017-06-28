@@ -4,7 +4,7 @@ import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 
 import Main from 'Main';
 import About from 'About';
-import Examples from 'Examples';
+import Favorites from 'Favorites';
 import Weather from 'Weather';
 
 // Load foundation
@@ -17,10 +17,12 @@ require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path = "/" component={Main}>
-      <IndexRoute component={Weather} />
-      <Route path = "about" component={About} />
-      <Route path = "examples" component={Examples}/>
+    <Route path='/' component={Main}>
+      <Route component={Weather}>
+        <IndexRoute />
+        <Route path="favorites" component={Favorites}/>
+      </Route>
+      <Route path="about" component={About} />
     </Route>
   </Router>,
   document.getElementById('app')

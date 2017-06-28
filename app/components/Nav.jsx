@@ -12,8 +12,8 @@ export default class Nav extends React.Component {
         </div>
         <div className="top-bar-right">
           <ul className="menu">
-            <IndexLink to="weather" activeClassName="active" className="menu-text">Show Local Weather</IndexLink>
-            <Link to="examples" activeClassName="active" className="menu-text">Your Saved Locations</Link>
+            <IndexLink to="/" activeClassName="active" className="menu-text">Show Local Weather</IndexLink>
+            <Link to="favorites" activeClassName="active" className="menu-text">Your Saved Locations</Link>
             <Link to="about" activeClassName="active" className="menu-text">About</Link>
           </ul>
         </div>
