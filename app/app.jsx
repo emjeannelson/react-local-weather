@@ -5,7 +5,7 @@ import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 import Main from 'Main';
 import About from 'About';
 import Favorites from 'Favorites';
-import Weather from 'Weather';
+import LocalWeather from 'LocalWeather';
 
 // Load foundation
 require('style!css!foundation-sites/dist/foundation.min.css');
@@ -18,10 +18,8 @@ require('style!css!sass!applicationStyles');
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
-      <Route component={Weather}>
-        <IndexRoute />
-        <Route path="favorites" component={Favorites}/>
-      </Route>
+      <IndexRoute component={LocalWeather} />
+      <Route path="favorites" component={Favorites}/>
       <Route path="about" component={About} />
     </Route>
   </Router>,

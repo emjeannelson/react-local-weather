@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class FavoriteButton extends React.Component {
+export default class AddFavoriteButton extends React.Component {
   constructor() {
     super();
     this.onClickFavorite = this.onClickFavorite.bind(this);
