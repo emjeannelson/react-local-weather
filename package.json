@@ -4,7 +4,6 @@
   "description": "React app to fetch weather using geolocation",
   "main": "index.js",
   "scripts": {
-    "test": "karma start",
     "start": "node server.js"
   },
   "author": "Emily Nelson",
@@ -12,10 +11,9 @@
   "dependencies": {
     "axios": "^0.9.1",
     "express": "^4.13.4",
-    "foundation-sites": "6.2.0",
+    "foundation-sites": "^6.4.0",
     "jquery": "^2.2.1",
     "react": "^0.14.7",
-    "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"
   },
@@ -26,14 +24,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
-    "expect": "^1.14.0",
-    "karma": "^0.13.22",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^2.0.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
-    "mocha": "^2.4.5",
+    "file-loader": "^0.11.2",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "script-loader": "^0.6.1",

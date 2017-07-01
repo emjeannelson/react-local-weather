@@ -20,7 +20,7 @@ export default class SearchForm extends React.Component {
       <div>
         <form onSubmit={this.onFormSubmit}>
           <input type="search" placeholder="Search weather by city" ref="city"/>
-          <button className="button expanded hollow">Get Weather</button>
+          <button type="submit" className="button expanded hollow">Get Weather</button>
         </form>
       </div>
     );

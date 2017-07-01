@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class AddFavoriteButton extends React.Component {
+export default class RemoveFavoriteButton extends React.Component {
   constructor() {
     super();
     this.onClickRemove = this.onClickRemove.bind(this);
@@ -8,11 +8,11 @@ export default class AddFavoriteButton extends React.Component {
   onClickRemove() {
     let {city} = this.props;
 
-    this.props.onAddFavorite(city);
+    this.props.onRemoveFavorite(city);
   }
   render() {
     return (
-      <button onClick={this.onClickRemove}>Remove from Favorites</button>
+      <button type="button" className="button hollow alert" onClick={this.onClickRemove}>Remove from Favorites</button>
     );
   }
 }

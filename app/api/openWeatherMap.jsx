@@ -16,7 +16,9 @@ export default function callWeatherAPI(city, units) {
       var weather = {
         temp: res.data.main.temp,
         desc: res.data.weather[0].main,
-        city: res.data.name
+        city: res.data.name,
+        country: res.data.sys.country,
+        icon: res.data.weather[0].icon
       }
 
       return weather;

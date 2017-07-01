@@ -10,6 +10,7 @@ export default class Main extends React.Component {
       favorites: getFavorites()
     }
     this.handleAddFavorite = this.handleAddFavorite.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.favorites !== this.state.favorites) {
@@ -26,11 +27,20 @@ export default class Main extends React.Component {
       });
     }
   }
+  handleRemoveFavorite(city) {
+    var filteredFavorites = this.state.favorites.filter(function(favorite) {
+      return favorite !== city;
+    });
+    this.setState({
+      favorites: filteredFavorites
+    });
+  }
   render() {
     var children = this.props.children;
     var childrenWithProps = React.cloneElement(children, {
+      favorites: this.state.favorites,
       onAddFavorite: this.handleAddFavorite,
-      favorites: this.state.favorites
+      onRemoveFavorite: this.handleRemoveFavorite
     });
 
     return (

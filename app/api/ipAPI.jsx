@@ -6,7 +6,6 @@ export default function callLocationAPI() {
   return axios.get(IP_API_URL).then(function (res) {
       var location = {
       city: res.data.city,
-      region: res.data.region,
       country: res.data.country,
       };
 

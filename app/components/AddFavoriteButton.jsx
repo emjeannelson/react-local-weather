@@ -12,7 +12,7 @@ export default class AddFavoriteButton extends React.Component {
   }
   render() {
     return (
-      <button onClick={this.onClickFavorite}>Save as a Favorite Location</button>
+      <button type="button" className="button hollow success" onClick={this.onClickFavorite}>Add to Saved Locations</button>
     );
   }
 }
