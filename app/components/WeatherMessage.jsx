@@ -16,7 +16,8 @@ export default class WeatherMessage extends React.Component {
       temp: undefined,
       icon: undefined,
       icon: undefined,
-      isLoading: false
+      isLoading: false,
+      errorMessage: undefined
     }
     this.getWeather = this.getWeather.bind(this);
     this.handleChangeUnits = this.handleChangeUnits.bind(this);
@@ -29,7 +30,8 @@ export default class WeatherMessage extends React.Component {
       this.setState({
         city: this.props.city,
         country: this.props.country,
-        isLoading: true
+        isLoading: true,
+        errorMessage: undefined
       }, this.getWeather);
     }
   }
@@ -39,7 +41,7 @@ export default class WeatherMessage extends React.Component {
     });
 
     var that = this;
-    var {city, units} = this.state;
+    var {city, units, country} = this.state;
 
     callWeatherAPI(city, units).then(function(weather) {
       that.setState({
@@ -50,6 +52,11 @@ export default class WeatherMessage extends React.Component {
         icon: weather.icon,
         isLoading: false
       });
+    }, function(e) {
+      that.setState({
+        isLoading: false,
+        errorMessage: e.message
+      });
     });
   }
   handleChangeUnits(newUnits) {
@@ -59,7 +66,7 @@ export default class WeatherMessage extends React.Component {
   }
   render() {
 
-    var {units, temp, desc, icon, city, country, isLoading} = this.state;
+    var {units, temp, desc, icon, city, country, isLoading, errorMessage} = this.state;
 
     var {onRemoveFavorite, location} = this.props;
 
@@ -125,9 +132,9 @@ export default class WeatherMessage extends React.Component {
     }
 
     function renderWeatherReport() {
-      if (temp && !isLoading && location.pathname === '/favorites') {
+      if (!errorMessage && temp && !isLoading && location.pathname === '/favorites') {
         return (
-          <div>
+          <div className="text-center">
             <div className="card-divider">
               <h1 className="text-center">{city}, {country}</h1>
             </div>
@@ -139,7 +146,7 @@ export default class WeatherMessage extends React.Component {
             <RemoveFavoriteButton city={city} onRemoveFavorite={onRemoveFavorite}/>
           </div>
         );
-      } else if (temp && !isLoading) {
+      } else if (!errorMessage && temp && !isLoading) {
         return (
           <div>
             <div className="card-divider">
@@ -156,6 +163,8 @@ export default class WeatherMessage extends React.Component {
         return (
           <h2 className="text-center">Getting weather report ... </h2>
         );
+      } else if (errorMessage) {
+        return <h2 className="text-center red">{errorMessage}</h2>
       }
     }
 

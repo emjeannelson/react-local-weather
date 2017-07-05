@@ -21,13 +21,13 @@ export default class UnitsButton extends React.Component {
     let unitsButton = null;
 
     if (this.props.units === 'metric' && !this.props.isLoading) {
-      unitsButton = <button className="button hollow small secondary" type="button" onClick={this.onClickUnits}>&deg;C</button>;
+      unitsButton = <button className="button hollow small secondary button-center" type="button" onClick={this.onClickUnits}>&deg;C</button>;
     } else if (this.props.units === 'imperial' && !this.props.isLoading) {
-      unitsButton = <button className="button hollow small secondary" type="button" onClick={this.onClickUnits}>&deg;F</button>;
+      unitsButton = <button className="button hollow small secondary button-center" type="button" onClick={this.onClickUnits}>&deg;F</button>;
     }
 
     return (
-      <div>
+      <div className="text-center">
         {unitsButton}
       </div>
     );

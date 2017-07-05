@@ -7,7 +7,7 @@ export default class Nav extends React.Component {
       <div className="top-bar">
         <div className="top-bar-left">
           <ul>
-            <li className="menu text">React Weather App by <a href="http://emilynelson.us">Emily Nelson</a></li>
+            <li className="menu text">React Weather App by <a className="nav-link" href="http://emilynelson.us">Emily Nelson</a></li>
           </ul>
         </div>
         <div className="top-bar-right">

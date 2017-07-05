@@ -16,6 +16,7 @@ export default class Weather extends React.Component {
       isLoading: false,
     };
     this.getLocation = this.getLocation.bind(this);
+    this.handleChangeLocation = this.handleChangeLocation.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
@@ -30,7 +31,6 @@ export default class Weather extends React.Component {
     var that = this;
 
     callLocationAPI().then(function(location) {
-      console.log(location.city);
       that.setState({
         city: location.city,
         country: location.country,
@@ -42,18 +42,20 @@ export default class Weather extends React.Component {
   }
   handleSearch(city) {
     this.setState({
-      city: city
+      city: city,
     });
   }
   render() {
 
-    var {isLoading, temp, desc, city, country, units, favorites} = this.state;
+    var {isLoading, temp, desc, city, country, units} = this.state;
 
     var handleChangeUnits = this.handleChangeUnits;
 
+    var handleChangeLocation = this.handleChangeLocation;
+
     var handleSearch = this.handleSearch;
 
-    var {onAddFavorite, location} = this.props;
+    var {favorites, onAddFavorite, location} = this.props;
 
     function renderWeatherReport() {
       if (city && !isLoading) {

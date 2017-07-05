@@ -7,7 +7,7 @@ export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      favorites: getFavorites()
+      favorites: getFavorites(),
     }
     this.handleAddFavorite = this.handleAddFavorite.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
@@ -18,12 +18,12 @@ export default class Main extends React.Component {
     }
   }
   handleAddFavorite(city) {
-    if (!this.state.favorites.includes(city)) {
+    if (city && !this.state.favorites.includes(city)) {
       this.setState({
         favorites: [
           ...this.state.favorites,
           city
-        ]
+        ],
       });
     }
   }
@@ -40,7 +40,7 @@ export default class Main extends React.Component {
     var childrenWithProps = React.cloneElement(children, {
       favorites: this.state.favorites,
       onAddFavorite: this.handleAddFavorite,
-      onRemoveFavorite: this.handleRemoveFavorite
+      onRemoveFavorite: this.handleRemoveFavorite,
     });
 
     return (
