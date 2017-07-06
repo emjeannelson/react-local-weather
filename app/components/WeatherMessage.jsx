@@ -2,6 +2,7 @@ import React from 'react';
 
 import WeatherConditions from 'WeatherConditions';
 import UnitsButton from 'UnitsButton';
+import AddFavoriteButton from 'AddFavoriteButton';
 import RemoveFavoriteButton from 'RemoveFavoriteButton';
 
 import callWeatherAPI from 'openWeatherMap';
@@ -11,8 +12,8 @@ export default class WeatherMessage extends React.Component {
     super(props);
     this.state = {
       units: 'metric',
-      city: this.props.city,
-      country: this.props.country,
+      city: undefined,
+      country: undefined,
       temp: undefined,
       icon: undefined,
       icon: undefined,
@@ -26,10 +27,8 @@ export default class WeatherMessage extends React.Component {
     this.getWeather();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.city !== this.props.city) {
+    if (prevProps.searchCity !== this.props.searchCity) {
       this.setState({
-        city: this.props.city,
-        country: this.props.country,
         isLoading: true,
         errorMessage: undefined
       }, this.getWeather);
@@ -41,9 +40,11 @@ export default class WeatherMessage extends React.Component {
     });
 
     var that = this;
-    var {city, units, country} = this.state;
 
-    callWeatherAPI(city, units).then(function(weather) {
+    var {units} = this.state;
+    var {searchCity} = this.props;
+
+    callWeatherAPI(searchCity, units).then(function(weather) {
       that.setState({
         city: weather.city,
         country: weather.country,
@@ -68,7 +69,7 @@ export default class WeatherMessage extends React.Component {
 
     var {units, temp, desc, icon, city, country, isLoading, errorMessage} = this.state;
 
-    var {onRemoveFavorite, location} = this.props;
+    var {onAddFavorite, onRemoveFavorite, location} = this.props;
 
     var handleChangeUnits = this.handleChangeUnits;
 
@@ -157,6 +158,7 @@ export default class WeatherMessage extends React.Component {
               <WeatherConditions temp={temp} desc={desc}/>
             </div>
             <UnitsButton units={units} onChangeUnits={handleChangeUnits} />
+            <AddFavoriteButton city={city} onAddFavorite={onAddFavorite}/>
           </div>
         );
       } else if (isLoading) {

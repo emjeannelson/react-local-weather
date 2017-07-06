@@ -7,16 +7,14 @@ import WeatherMessage from 'WeatherMessage';
 import SearchForm from 'SearchForm';
 import AddFavoriteButton from 'AddFavoriteButton';
 
-export default class Weather extends React.Component {
+export default class LocalWeather extends React.Component {
   constructor() {
     super();
     this.state = {
-      city: undefined,
-      units: 'metric',
+      searchCity: undefined,
       isLoading: false,
     };
     this.getLocation = this.getLocation.bind(this);
-    this.handleChangeLocation = this.handleChangeLocation.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
@@ -32,8 +30,7 @@ export default class Weather extends React.Component {
 
     callLocationAPI().then(function(location) {
       that.setState({
-        city: location.city,
-        country: location.country,
+        searchCity: location.city,
         isLoading: false
       });
     }, function(e) {
@@ -42,12 +39,12 @@ export default class Weather extends React.Component {
   }
   handleSearch(city) {
     this.setState({
-      city: city,
+      searchCity: city,
     });
   }
   render() {
 
-    var {isLoading, temp, desc, city, country, units} = this.state;
+    var {isLoading, temp, desc, searchCity, country, units} = this.state;
 
     var handleChangeUnits = this.handleChangeUnits;
 
@@ -58,14 +55,13 @@ export default class Weather extends React.Component {
     var {favorites, onAddFavorite, location} = this.props;
 
     function renderWeatherReport() {
-      if (city && !isLoading) {
+      if (searchCity && !isLoading) {
         return (
           <div>
             <div className="row align-center">
               <div className="columns small-12 medium-6">
                 <div className="card">
-                  <WeatherMessage city={city} country={country} location={location}/>
-                  <AddFavoriteButton city={city} onAddFavorite={onAddFavorite}/>
+                  <WeatherMessage onAddFavorite={onAddFavorite} searchCity={searchCity} location={location}/>
                 </div>
               </div>
             </div>

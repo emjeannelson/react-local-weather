@@ -10,7 +10,7 @@ export default class Favorites extends React.Component {
         return (
           <div key={index} className="columns small-12 medium-6 large-4">
             <div className="card">
-              <WeatherMessage city={city} location={location} onRemoveFavorite={onRemoveFavorite}/>
+              <WeatherMessage searchCity={city} location={location} onRemoveFavorite={onRemoveFavorite}/>
             </div>
           </div>
         );
