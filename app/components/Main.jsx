@@ -8,9 +8,11 @@ export default class Main extends React.Component {
     super();
     this.state = {
       favorites: getFavorites(),
+      addFavoritesMessage: ''
     }
     this.handleAddFavorite = this.handleAddFavorite.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
+    this.handleClearFavoritesMessage = this.handleClearFavoritesMessage.bind(this);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.favorites !== this.state.favorites) {
@@ -24,6 +26,11 @@ export default class Main extends React.Component {
           ...this.state.favorites,
           city
         ],
+        addFavoritesMessage: 'Added ' + city + ' to your saved locations.'
+      });
+    } else if (this.state.favorites.includes(city)) {
+      this.setState({
+        addFavoritesMessage: city + ' is already in your saved locations.'
       });
     }
   }
@@ -35,11 +42,18 @@ export default class Main extends React.Component {
       favorites: filteredFavorites
     });
   }
+  handleClearFavoritesMessage() {
+    this.setState({
+      addFavoritesMessage: ''
+    });
+  }
   render() {
     var children = this.props.children;
     var childrenWithProps = React.cloneElement(children, {
       favorites: this.state.favorites,
       onAddFavorite: this.handleAddFavorite,
+      addFavoritesMessage: this.state.addFavoritesMessage,
+      clearFavoritesMessage: this.handleClearFavoritesMessage,
       onRemoveFavorite: this.handleRemoveFavorite,
     });
 

@@ -11,6 +11,6 @@ export default function callLocationAPI() {
 
       return location;
   }, function (error) {
-    throw new Error('Unable to get current location');
+    throw new Error('Sorry, we can\'t get your current location. Try reloading.');
   });
 };

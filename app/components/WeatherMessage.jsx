@@ -131,13 +131,12 @@ export default class WeatherMessage extends React.Component {
           break;
       }
     }
-
     function renderWeatherReport() {
       if (!errorMessage && temp && !isLoading && location.pathname === '/favorites') {
         return (
           <div className="text-center">
             <div className="card-divider">
-              <h1 className="text-center">{city}, {country}</h1>
+              <h1>{city}, {country}</h1>
             </div>
             <div className="card-section">
               {renderWeatherIcon()}
@@ -149,9 +148,9 @@ export default class WeatherMessage extends React.Component {
         );
       } else if (!errorMessage && temp && !isLoading) {
         return (
-          <div>
+          <div className="text-center">
             <div className="card-divider">
-              <h1 className="text-center">{city}, {country}</h1>
+              <h1>{city}, {country}</h1>
             </div>
             <div className="card-section">
               {renderWeatherIcon()}
@@ -163,7 +162,7 @@ export default class WeatherMessage extends React.Component {
         );
       } else if (isLoading) {
         return (
-          <h2 className="text-center">Getting weather report ... </h2>
+          <h2>Getting weather report ... </h2>
         );
       } else if (errorMessage) {
         return <h2 className="text-center red">{errorMessage}</h2>

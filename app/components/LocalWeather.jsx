@@ -13,6 +13,7 @@ export default class LocalWeather extends React.Component {
     this.state = {
       searchCity: undefined,
       isLoading: false,
+      errorMessage: undefined
     };
     this.getLocation = this.getLocation.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -34,17 +35,20 @@ export default class LocalWeather extends React.Component {
         isLoading: false
       });
     }, function(e) {
-      console.log('Sorry, we can\'t get your current location');
+        that.setState({
+          errorMessage: e.message
+        });
     });
   }
   handleSearch(city) {
     this.setState({
       searchCity: city,
     });
+    this.props.clearFavoritesMessage();
   }
   render() {
 
-    var {isLoading, temp, desc, searchCity, country, units} = this.state;
+    var {isLoading, temp, desc, searchCity, country, units, errorMessage} = this.state;
 
     var handleChangeUnits = this.handleChangeUnits;
 
@@ -52,17 +56,18 @@ export default class LocalWeather extends React.Component {
 
     var handleSearch = this.handleSearch;
 
-    var {favorites, onAddFavorite, location} = this.props;
+    var {favorites, onAddFavorite, addFavoritesMessage, location} = this.props;
 
     function renderWeatherReport() {
       if (searchCity && !isLoading) {
         return (
-          <div>
+          <div className="text-center">
             <div className="row align-center">
               <div className="columns small-12 medium-6">
                 <div className="card">
-                  <WeatherMessage onAddFavorite={onAddFavorite} searchCity={searchCity} location={location}/>
+                  <WeatherMessage favorites={favorites} onAddFavorite={onAddFavorite} searchCity={searchCity} location={location}/>
                 </div>
+                <p>{addFavoritesMessage}</p>
               </div>
             </div>
             <div className="row align-center">
@@ -77,6 +82,8 @@ export default class LocalWeather extends React.Component {
         return (
             <h3 className="text-center">Getting your location, this might take a minute ... </h3>
         );
+      } else if (errorMessage) {
+        return (<h2 className="text-center red">{errorMessage}</h2>);
       }
     }
 
