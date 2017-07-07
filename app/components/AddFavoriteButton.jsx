@@ -6,7 +6,7 @@ export default class AddFavoriteButton extends React.Component {
     this.onClickFavorite = this.onClickFavorite.bind(this);
   }
   onClickFavorite() {
-    let {city} = this.props;
+    var {city} = this.props;
 
     this.props.onAddFavorite(city);
   }

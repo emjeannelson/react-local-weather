@@ -6,7 +6,7 @@ export default class RemoveFavoriteButton extends React.Component {
     this.onClickRemove = this.onClickRemove.bind(this);
   }
   onClickRemove() {
-    let {city} = this.props;
+    var {city} = this.props;
 
     this.props.onRemoveFavorite(city);
   }

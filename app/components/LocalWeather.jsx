@@ -3,17 +3,17 @@ import React from 'react';
 import callLocationAPI from 'ipAPI';
 import callWeatherAPI from 'openWeatherMap';
 
-import WeatherMessage from 'WeatherMessage';
-import SearchForm from 'SearchForm';
 import AddFavoriteButton from 'AddFavoriteButton';
+import SearchForm from 'SearchForm';
+import WeatherMessage from 'WeatherMessage';
 
 export default class LocalWeather extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchCity: undefined,
+      locationErrorMessage: undefined,
       isLoading: false,
-      errorMessage: undefined
+      searchCity: undefined,
     };
     this.getLocation = this.getLocation.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -36,7 +36,7 @@ export default class LocalWeather extends React.Component {
       });
     }, function(e) {
         that.setState({
-          errorMessage: e.message
+          locationErrorMessage: e.message
         });
     });
   }
@@ -48,15 +48,12 @@ export default class LocalWeather extends React.Component {
   }
   render() {
 
-    var {isLoading, temp, desc, searchCity, country, units, errorMessage} = this.state;
-
-    var handleChangeUnits = this.handleChangeUnits;
-
+    var {country, desc, locationErrorMessage, isLoading, searchCity, temp, units} = this.state;
+    var {addFavoritesMessage, favorites, location, onAddFavorite} = this.props;
     var handleChangeLocation = this.handleChangeLocation;
-
+    var handleChangeUnits = this.handleChangeUnits;
     var handleSearch = this.handleSearch;
 
-    var {favorites, onAddFavorite, addFavoritesMessage, location} = this.props;
 
     function renderWeatherReport() {
       if (searchCity && !isLoading) {
@@ -82,8 +79,8 @@ export default class LocalWeather extends React.Component {
         return (
             <h3 className="text-center">Getting your location, this might take a minute ... </h3>
         );
-      } else if (errorMessage) {
-        return (<h2 className="text-center red">{errorMessage}</h2>);
+      } else if (locationErrorMessage) {
+        return (<h2 className="text-center red">{locationErrorMessage}</h2>);
       }
     }
 

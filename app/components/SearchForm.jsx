@@ -8,7 +8,7 @@ export default class SearchForm extends React.Component {
   onFormSubmit(e) {
     e.preventDefault();
 
-    let city = this.refs.city.value;
+    var city = this.refs.city.value;
 
     if (city.length > 0) {
         this.refs.city.value = '';
@@ -24,6 +24,5 @@ export default class SearchForm extends React.Component {
         </form>
       </div>
     );
-
   }
 }

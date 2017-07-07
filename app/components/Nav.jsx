@@ -6,15 +6,16 @@ export default class Nav extends React.Component {
     return (
       <div className="top-bar">
         <div className="top-bar-left">
-          <ul>
-            <li className="menu text">React Weather App by <a className="nav-link" href="http://emilynelson.us">Emily Nelson</a></li>
+          <ul className="menu">
+            <li className="menu-text">React Weather App</li>
+            <IndexLink to="/" activeClassName="active" className="menu-text">Show Local Weather</IndexLink>
+            <Link to="favorites" activeClassName="active" className="menu-text">Your Saved Locations</Link>
+            <Link to="about" activeClassName="active" className="menu-text">About</Link>
           </ul>
         </div>
         <div className="top-bar-right">
           <ul className="menu">
-            <IndexLink to="/" activeClassName="active" className="menu-text">Show Local Weather</IndexLink>
-            <Link to="favorites" activeClassName="active" className="menu-text">Your Saved Locations</Link>
-            <Link to="about" activeClassName="active" className="menu-text">About</Link>
+            <li className="menu-text">Created by <a href="http://www.emilynelson.us" target="_blank">Emily Nelson</a></li>
           </ul>
         </div>
       </div>

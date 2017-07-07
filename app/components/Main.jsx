@@ -1,18 +1,19 @@
 import React from 'react';
 
 import Nav from 'Nav';
+
 import {getFavorites, setFavorites} from 'FavoritesAPI';
 
 export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
+      addFavoritesMessage: '',
       favorites: getFavorites(),
-      addFavoritesMessage: ''
     }
     this.handleAddFavorite = this.handleAddFavorite.bind(this);
-    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
     this.handleClearFavoritesMessage = this.handleClearFavoritesMessage.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.favorites !== this.state.favorites) {
@@ -34,17 +35,17 @@ export default class Main extends React.Component {
       });
     }
   }
+  handleClearFavoritesMessage() {
+    this.setState({
+      addFavoritesMessage: ''
+    });
+  }
   handleRemoveFavorite(city) {
     var filteredFavorites = this.state.favorites.filter(function(favorite) {
       return favorite !== city;
     });
     this.setState({
       favorites: filteredFavorites
-    });
-  }
-  handleClearFavoritesMessage() {
-    this.setState({
-      addFavoritesMessage: ''
     });
   }
   render() {

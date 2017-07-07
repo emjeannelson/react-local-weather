@@ -8,5 +8,6 @@
 @include foundation-flex-grid;
 
 // Components
+@import 'components/navigation';
 @import 'components/typography';
 @import 'components/weather-icons';
