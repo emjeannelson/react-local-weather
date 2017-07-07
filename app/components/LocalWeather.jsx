@@ -25,6 +25,16 @@ export default class LocalWeather extends React.Component {
 
     this.getLocation();
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.location.key !== this.props.location.key) {
+      console.log('clear state');
+        this.setState({
+          locationErrorMessage: undefined,
+          isLoading: false,
+          searchCity: undefined,
+        }, this.getLocation);
+    }
+  }
   getLocation() {
 
     var that = this;

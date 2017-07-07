@@ -132,7 +132,7 @@ export default class WeatherMessage extends React.Component {
       }
     }
     function renderWeatherReport() {
-      if (!weatherErrorMessage && temp && !isLoading && location.pathname === '/favorites') {
+      if (!weatherErrorMessage && temp && !isLoading && location.pathname === 'favorites') {
         return (
           <div className="text-center">
             <div className="card-divider">
